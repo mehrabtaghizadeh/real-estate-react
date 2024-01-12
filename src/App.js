@@ -15,7 +15,6 @@ import MyProperty from './pages/MyProperty';
 import { QueryClient, QueryClientProvider } from "react-query";
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 const queryClient = new QueryClient({});
 
@@ -34,7 +33,7 @@ function App() {
       <Route path="/register" element={<RegisterPage/>} />
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/add" element={<NewProperty/>} />
-      <Route path="/edit/:id" element={<Auth><EditProperty/></Auth>} />
+      <Route path="/edit/:id" element={<EditProperty/>} />
       <Route path="/my" element={<MyProperty/>} />
       <Route path="/search" element={<SearchResult/>} />
       <Route path='*' element={<NotFound/>}/>

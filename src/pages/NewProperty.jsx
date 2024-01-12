@@ -79,7 +79,7 @@ function NewProperty() {
     for (const file of files) {
       data.append('image', file);
     }
-    fetch('http://localhost:4000/upload',{
+    fetch(`${BASE_URL}/upload`,{
       method:'POST',
       body:data
     }).then(res => res.json()).then(data =>{setImages(data);setShowImags(data)});

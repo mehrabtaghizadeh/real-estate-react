@@ -1,4 +1,4 @@
-import React, { Fragment , useMemo, useState , useEffect} from 'react'
+import React, { Fragment , useMemo, useState , useEffect, useContext} from 'react'
 import './new-property.css'
 import { MdApartment , MdSell , MdCompareArrows } from 'react-icons/md'
 import { TbBuildingEstate} from 'react-icons/tb'
@@ -12,11 +12,11 @@ import { useParams , useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import CurrencyInput from 'react-currency-input-field';
 import { FaMoneyBill } from "react-icons/fa";
-import { useQuery } from "react-query"
 import {Textarea} from "@nextui-org/react";
-import Loading from '../components/Loading'
 import { Dialog, Transition } from '@headlessui/react'
 import {Modal, ModalContent, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import { UserContext } from '../context/AuthContext.js'
+
 function EditProperty() {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   let [isOpenEdit, setIsOpenEdit] = useState(false)
@@ -46,12 +46,10 @@ function EditProperty() {
   const [description,setDescription] = useState("")
   const [bedroom,setBedroom] = useState()
   const [contract,setContract] = useState()
-  const [userId,setUserId] = useState()
   const {id} = useParams()
-  
+  const { userId } = useContext(UserContext)
     useEffect(()=>{
     fetch(`${BASE_URL}/propertyes/one/${id}`,{
-      method:'GET',
       credentials:'include'
     }).then((res) => res.json())
     .then((data) => {  
@@ -78,7 +76,7 @@ function EditProperty() {
      for (const file of files) {
        data.append('image', file);
      }
-     fetch('http://localhost:4000/upload',{
+     fetch(`${BASE_URL}/upload`,{
        method:'POST',
        body:data
      }).then(res => res.json()).then(data =>{setImages(data)});
@@ -92,25 +90,16 @@ function EditProperty() {
     } else {
       setShowRent(false);
     }
-  }, [contract]);
-  useMemo(()=>{
-     fetch(`${BASE_URL}/user/profile`,{
-      credentials:'include'
-     }).then(res => res.json()).then(data=>{ 
-      const id = data.id
-      setUserId(id)
-  })
-  },[])
+  }, [contract])
+
  function editHandeler (e) {
   e.preventDefault()
   const data = {userId,contract,rent,price,perMonth,images,phone,description,title,bedroom,year,area,category,location}
-  setIsOpenEdit(false)
    fetch(`${BASE_URL}/propertyes/update/${id}`,{
     method: 'PUT',
     headers:{'Content-Type': 'application/json'},
     body:JSON.stringify(data)
    }).then(res => res.json()).then(data => {
-    console.log(data)
     Swal.fire('موفقیت','با موفقیت ویرایش شد','success')
     navigate("/")
   }).catch(() => Swal.fire('خطا','مشکلی پیش آمد!','error'))
@@ -122,7 +111,6 @@ function EditProperty() {
       method:"DELETE",
        body:JSON.stringify(userId)
     }).then(res => res.json()).then((data)=>{
-      console.log(data)
       Swal.fire('موفقیت','با موفقیت حذف شد','success')
       navigate("/")
     }).catch(()=> Swal.fire('خطا','مشکلی پیش آمد!','error'))

@@ -1,0 +1,126 @@
+.main-property{
+    margin: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.property-body{
+    border-radius: .5rem;
+}
+.property-img{
+    display: flex;
+    justify-content: center;
+}
+.property-img img{
+    border-radius: .5rem;
+}
+.property-body-item{
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #00000029;
+}
+.property-body-item p{
+    color: #113074;
+}
+.property-footer{
+    padding: 2rem;
+    border-radius: .5rem;
+    height: fit-content;
+}
+.property-footer-title{
+    color: #093595;
+    margin: 1rem 2rem;
+}
+.desc{
+    padding: .6rem;
+    line-height: normal;
+    font-size: 1rem;
+}  
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+@media (max-width:1200px) {
+    .main-property{
+        margin: 2rem;
+        grid-template-columns: 1fr;
+        gap: 0;
+        border-radius: .5rem;
+    }
+    .property-body{
+        margin-top: .5rem;
+        border-radius: 0;
+        padding: 0 1rem;
+        border-top: .6rem;
+    }
+    .property-body-item{
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #00000029;
+    }
+    .property-footer{
+        padding: 0 1rem ;
+        border-radius: 0;
+        border-top: none;
+        border-bottom-left-radius: .6rem;
+        border-bottom-right-radius: .6rem;
+    }
+    .property-img img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        width: 80%;
+        height: 50%;
+    }
+    .modal{
+        margin: 1rem ;
+    }
+}
+@media (max-width:768px) {
+    .property-img img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        width: 95%;
+        height: 50%;
+    }
+}
+@media (max-width:500px) {
+    .main-property{
+        margin: 1rem;
+    }
+    .property-body{
+        padding: 0 .5rem;
+
+    }
+    .property-body-item{
+        padding: 1rem;
+    }
+    .property-footer-title{
+        margin: 1rem ;
+    }
+}

@@ -1,25 +1,18 @@
-import React, { useEffect , useState } from 'react'
+import React, { useContext, useEffect , useState } from 'react'
 import BASE_URL from '../utils/BASE_URL'
 import { Link } from 'react-router-dom'
 import PropertyCard from '../components/Card'
+import { UserContext } from '../context/AuthContext'
 
 
 function MyProperty() {
-  const [userId,setUserId] = useState()
   const [data,setData] = useState()
-  useEffect(()=>{
-    fetch(`${BASE_URL}/user/profile`,{
-     credentials:'include'
-    }).then(res => res.json()).then(data=>{ 
-     const id = data.id
-     setUserId(id)
- })
-})
+  const { userId } = useContext(UserContext)
   useEffect(()=>{
    fetch(`${BASE_URL}/user/oneUser/${userId}`).then(res => res.json()).then(data=>{ 
      const property = data.property
      setData(property)
- }).catch(err => console.log(err))
+ })
  },[userId])
 
   return ( <>

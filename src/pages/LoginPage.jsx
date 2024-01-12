@@ -38,9 +38,9 @@ function LoginPage() {
         .then((data) => {
           console.log(data)
           Swal.fire("موفقیت", "ثبت نام با موفقیت انجام شد", "success");
-          navigate("/")
-          setUser(data.user.username)
           setUserId(data.user._id)
+          setUser(data.user.username)
+          navigate("/")
         })
         .catch((err) => console.log(err));
     },

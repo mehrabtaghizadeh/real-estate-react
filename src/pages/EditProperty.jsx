@@ -55,8 +55,6 @@ function EditProperty() {
       credentials:'include'
     }).then((res) => res.json())
     .then((data) => {  
-      console.log(data.category)
-      console.log(data.location)
     setTitle(data.title)  
     setYear(data.year)
     setImages(data.images)

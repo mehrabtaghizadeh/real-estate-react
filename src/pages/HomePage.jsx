@@ -56,7 +56,7 @@ function HomePage() {
           slidesPerView={3}
         >
           {data?.map((pro, i) => (
-            <SwiperSlide key={i}>
+            <SwiperSlide key={i} className="m-2" >
               <Link to={`/property/${pro._id}`}>
                 <PropertyCard
                   price={pro.price}

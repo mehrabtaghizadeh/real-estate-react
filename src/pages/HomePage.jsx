@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Landing from "../components/Landing";
 import AboutUs from "../components/AboutUs";
 import Service from "../components/Service";
@@ -7,23 +7,28 @@ import "swiper/css";
 import PropertyCard from "../components/Card";
 import { Link } from "react-router-dom";
 import BASE_URL from "../utils/BASE_URL";
-import { useQuery } from "react-query"
 import Loading from "../components/Loading";
 function HomePage() {
   const [data, setData] = useState([]);
-   const {isLoading,error} = useQuery(["properties"],()=>{
-     fetch(`${BASE_URL}/propertyes/homepage`, {
-       credentials: "include",
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         setData(data);
-       })
-       .catch(err => console.log(err));
-   })
-   if(isLoading) return <Loading/>;
-   if(error){ return <p>{error}</p>;}
-  return (
+  const [loading,setLoading] = useState(true)
+   useEffect(()=>{
+    fetch(`${BASE_URL}/propertyes/homepage`, {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false)
+      })
+      .catch(err => console.log(err));
+   },[])
+
+    if(loading === true ){ 
+       return <Loading/>;
+    }
+
+
+   return (
     <>
       <Landing />
       <Service />

@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import CurrencyInput from "react-currency-input-field";
+import {BarLoader} from "react-spinners"
+import {BounceLoader} from "react-spinners"
 
 function NewProperty() {
   const navigate = useNavigate();
@@ -21,6 +23,8 @@ function NewProperty() {
     { label: "فروش", value: "فروش" },
     { label: "اجاره", value: "اجاره" },
   ];
+  const [isImageLoading , setIsImageLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false) 
   const [images, setImages] = useState();
   const [showImages,setShowImags] = useState();
   const [phone, setPhone] = useState();
@@ -73,6 +77,7 @@ function NewProperty() {
       .catch((err) => console.log(err));
   }
   function uploadHandler(ev) {
+    setIsImageLoading(true);
    const files = ev.target.files
    if (files?.length > 0) {
     const data = new FormData();
@@ -82,7 +87,9 @@ function NewProperty() {
     fetch(`${BASE_URL}/upload`,{
       method:'POST',
       body:data
-    }).then(res => res.json()).then(data =>{setImages(data);setShowImags(data)});
+    }).then(res => res.json()).then(data =>{
+       setIsImageLoading(false)
+      setImages(data);setShowImags(data)});
   }
 }
   return (
@@ -250,8 +257,8 @@ function NewProperty() {
           </label>
         </div>
            {showImages ? 
-           
-        <div className="grid p-8 gap-2 grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 ">
+            <div className="grid p-8 gap-2 grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 ">
+            {isImageLoading ? <BounceLoader color="#458bf6" /> : ""}  
          { showImages.map(image => (<img alt="" key={image.url} src={image.url} className="rounded aspect-square" />))} 
            </div>
            
@@ -272,7 +279,7 @@ function NewProperty() {
             className="btn-newProperty"
             onClick={submitHandeler}
           >
-            ثبت
+            {isLoading ? <BarLoader color="#ffffff" /> : "ثبت"}
           </button>
         </div>
       </form>

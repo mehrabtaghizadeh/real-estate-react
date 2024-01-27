@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import Footer from "../components/Footer";
+import React, { useContext, useState } from "react";
 import { AiFillLock } from "react-icons/ai";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import "./register.css";
@@ -10,9 +9,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UserContext } from "../context/AuthContext";
 import {Helmet} from "react-helmet";
-
+import {BarLoader} from "react-spinners"
 function LoginPage() {
   const {setUserId,setUser} = useContext(UserContext)
+  const [isLoading,setIsLoading] = useState(false)
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -26,6 +26,7 @@ function LoginPage() {
       email: Yup.string().email("!فرمت ایمیل صحیح نیست*").required("*اجباری"),
     }),
     onSubmit: (values) => {
+      setIsLoading(true)
       fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         headers: {
@@ -101,7 +102,7 @@ function LoginPage() {
             </Link>
           </p>
           <button type="submit" className="btn-register">
-            ورود
+            {isLoading ? <BarLoader color="#ffffff" /> : "ورود"} 
           </button>
         </form>
       </div>

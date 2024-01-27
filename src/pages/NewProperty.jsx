@@ -60,6 +60,7 @@ function NewProperty() {
     }
   }, [contract]);
   function submitHandeler(ev) {
+    setIsLoading(true)
     ev.preventDefault();
       const data = {userId,contract,rent,price,perMonth,images,phone,description,title,bedroom,year,area,category,location}
       console.log(data)
@@ -88,8 +89,9 @@ function NewProperty() {
       method:'POST',
       body:data
     }).then(res => res.json()).then(data =>{
-       setIsImageLoading(false)
-      setImages(data);setShowImags(data)});
+      setIsImageLoading(false);
+      setImages(data);
+      setShowImags(data)});
   }
 }
   return (
@@ -256,9 +258,9 @@ function NewProperty() {
             />
           </label>
         </div>
+        {isImageLoading ? <BounceLoader color="#458bf6" /> : ""}  
            {showImages ? 
             <div className="grid p-8 gap-2 grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 ">
-            {isImageLoading ? <BounceLoader color="#458bf6" /> : ""}  
          { showImages.map(image => (<img alt="" key={image.url} src={image.url} className="rounded aspect-square" />))} 
            </div>
            

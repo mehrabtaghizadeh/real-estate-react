@@ -54,7 +54,6 @@ function RegisterPage() {
          <title>ثبت نام</title>
          <meta name="ثبت نام"  content="ثبت نام جدید " />
          </Helmet>
-         <Header/>
       <div className="register">
         <form
           action=""
